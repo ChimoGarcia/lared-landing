@@ -184,12 +184,21 @@ footer .wrap{display:flex;flex-direction:column;gap:24px}
 .risk{border:1px solid var(--linea);border-radius:14px;padding:20px 22px;line-height:1.6}
 .legal{display:flex;flex-wrap:wrap;gap:10px 24px}
 .legal a{color:var(--gris-osc)}
+.cookie-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:760px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:18px 22px;border-radius:16px;background:var(--noche);color:var(--blanco);border:1px solid var(--linea);box-shadow:0 20px 50px rgba(0,0,0,.35);font-size:14px;line-height:1.5}
+.cookie-bar[hidden]{display:none}
+.cookie-bar p{margin:0;flex:1;color:var(--gris-osc)}
+.cookie-bar a{color:var(--mostaza)}
+.cookie-actions{display:flex;gap:10px;flex-shrink:0}
+.cookie-btn{min-height:44px;padding:10px 18px;border-radius:10px;border:0;background:var(--mostaza);color:var(--petroleo);font:inherit;font-weight:800;cursor:pointer}
+.cookie-btn.ghost{background:transparent;color:var(--blanco);border:1px solid var(--linea)}
+@media (max-width:600px){.cookie-bar{flex-direction:column;align-items:stretch;gap:14px;left:12px;right:12px;bottom:12px}.cookie-actions .cookie-btn{flex:1}}
 .modal{width:min(720px,calc(100% - 32px));max-height:min(86vh,900px);border:0;border-radius:22px;padding:40px 40px 32px;background:var(--blanco);color:var(--petroleo);box-shadow:0 30px 80px rgba(0,0,0,.4);overflow:auto;line-height:1.6;font-size:16px}
 .modal::backdrop{background:rgba(11,31,38,.72)}
 .modal h2{font-size:clamp(26px,3vw,34px);margin:0 0 18px;padding-right:40px}
 .modal h3{font-size:17px;margin:22px 0 6px}
 .modal p,.modal ul{margin:0 0 10px;color:var(--gris-cla)}
 .modal ul{padding-left:20px}
+.modal a:not(.btn){color:var(--bronce)}
 .modal .ph{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--terracota)}
 .modal .btn{margin-top:10px}
 .modal-x{position:sticky;top:0;float:right;margin:-16px -16px 0 0;width:40px;height:40px;border-radius:50%;border:0;background:var(--arena);color:var(--petroleo);font-size:16px;font-weight:800;cursor:pointer}
@@ -236,7 +245,8 @@ section:not(.light):not(.sand) .tech{color:var(--gris-osc)}
 .cutout .backdrop::before{content:"";position:absolute;inset:0;opacity:.12;background-image:linear-gradient(45deg,transparent 48.5%,var(--blanco) 49%,var(--blanco) 51%,transparent 51.5%),linear-gradient(-45deg,transparent 48.5%,var(--blanco) 49%,var(--blanco) 51%,transparent 51.5%);background-size:36px 36px}
 .cutout .ring{position:absolute;width:78%;aspect-ratio:1;left:11%;top:-30%;border-radius:50%;border:2px solid rgba(217,164,65,.55)}
 .cutout img{position:absolute;left:0;bottom:0;width:100%;height:auto;border-radius:0 0 28px 28px;z-index:1}
-.cutout .robot-card{z-index:2;left:auto;right:-34px;bottom:30px}
+.cutout .robot-card{z-index:2;left:auto;right:-48px;bottom:-92px}
+@media (min-width:981px) and (max-width:1200px){ .cutout .robot-card{right:-8px} }
 @media (max-width:980px){ .cutout .robot-card{right:10px;bottom:12px} }
 @media (max-width:760px){
   .cutout .robot-card{width:auto;padding:10px 14px;border-radius:999px;right:12px;bottom:12px}
@@ -607,7 +617,7 @@ section:not(.light):not(.sand) .tech{color:var(--gris-osc)}
     <div class="about-copy">
       <span class="kicker">Quién soy</span>
       <h2>Soy Chimo García.</h2>
-      <p class="lead">Trader independiente. Llevo más de 14 años invirtiendo y he pasado por lo mismo que tú: decisiones con incertidumbre, estrategias que no funcionaban y demasiadas horas delante de la pantalla.</p>
+      <p class="lead">Trader independiente y asesor financiero MiFID&nbsp;II. Llevo más de 14 años invirtiendo y he pasado por lo mismo que tú: decisiones con incertidumbre, estrategias que no funcionaban y demasiadas horas delante de la pantalla.</p>
       <p class="lead">LA RED nació para convertir la improvisación en un proceso. La uso con mi propio dinero y la enseño porque vivo de invertir y también de enseñar. Sin comerciales: si reservas una llamada, hablas conmigo directamente.</p>
       <blockquote>“Una buena estrategia no elimina el riesgo. Lo gestiona.”</blockquote>
     </div>
@@ -651,89 +661,65 @@ section:not(.light):not(.sand) .tech{color:var(--gris-osc)}
 <footer>
   <div class="wrap">
     <a class="brand" href="#inicio" style="color:var(--blanco)"><svg width="38" height="38" aria-hidden="true"><use href="#logo"/></svg>LA RED <small>· Chimo García</small></a>
-    <nav class="legal" aria-label="Información legal"><a href="#aviso-legal" data-modal="m-aviso">Aviso legal</a><a href="#privacidad" data-modal="m-privacidad">Política de privacidad</a><a href="#cookies" data-modal="m-cookies">Política de cookies</a><a href="#riesgo" data-modal="m-riesgo">Aviso de riesgo</a><a href="#contacto" data-modal="m-contacto">Contacto</a></nav>
+    <nav class="legal" aria-label="Información legal"><a href="#aviso-legal" data-modal="m-aviso">Aviso legal</a><a href="#privacidad" data-modal="m-privacidad">Política de privacidad</a><a href="#cookies" data-modal="m-cookies">Política de cookies</a><a href="#riesgo" data-modal="m-riesgo">Aviso de riesgo</a><a href="#" id="cookie-config">Configurar cookies</a><a href="#contacto" data-modal="m-contacto">Contacto</a></nav>
     <p>© <span id="y"></span> LA RED · Chimo García</p>
   </div>
 </footer>
 
-<!-- TEXTOS LEGALES (ventanas emergentes). Rellenar los campos entre [corchetes] y revisar con un abogado antes de publicar. -->
+<!-- TEXTOS LEGALES (ventanas emergentes) -->
 <dialog class="modal" id="m-aviso" aria-labelledby="t-aviso">
   <button class="modal-x" type="button" aria-label="Cerrar">✕</button>
   <h2 id="t-aviso">Aviso legal</h2>
-  <h3>Titular del sitio web</h3>
-  <p>En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos del titular de esta web:</p>
-  <ul>
-    <li>Titular: <span class="ph">[Nombre completo o razón social]</span></li>
-    <li>NIF/CIF: <span class="ph">[NIF]</span></li>
-    <li>Domicilio: <span class="ph">[Dirección completa]</span></li>
-    <li>Correo electrónico: <span class="ph">[email de contacto]</span></li>
-    <li>Datos registrales: <span class="ph">[Registro Mercantil, si es sociedad]</span></li>
-  </ul>
-  <h3>Objeto</h3>
-  <p>Esta web informa sobre LA RED, una formación sobre una estrategia de inversión automatizada impartida por Chimo García, y permite reservar una llamada informativa sin compromiso.</p>
-  <h3>Condiciones de uso</h3>
-  <p>El acceso a esta web es gratuito y atribuye la condición de usuario. El usuario se compromete a hacer un uso adecuado de los contenidos y a no emplearlos para actividades ilícitas o contrarias a la buena fe.</p>
-  <h3>Propiedad intelectual</h3>
-  <p>Los textos, imágenes, logotipos, diseño y demás contenidos de esta web pertenecen a su titular o cuentan con licencia para su uso. Queda prohibida su reproducción, distribución o transformación sin autorización expresa.</p>
-  <h3>Responsabilidad</h3>
-  <p>Los contenidos de esta web tienen carácter informativo y formativo. No constituyen asesoramiento financiero personalizado ni una recomendación de inversión. El titular no se hace responsable de las decisiones que el usuario tome a partir de ellos.</p>
-  <h3>Legislación aplicable</h3>
-  <p>Estas condiciones se rigen por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales que correspondan conforme a la normativa vigente.</p>
+  <h3>1. Datos identificativos</h3><p>En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de que este sitio web, correspondiente al proyecto LA RED, es titularidad de:</p><ul><li>Titular: José Ramón García del Castillo</li><li>NIF/CIF: 52590139H</li><li>Domicilio: Los Carbayinos Nº 7, Oviedo, Asturias (España)</li><li>Correo electrónico: <a href="mailto:chimogarcia.mkt@gmail.com">chimogarcia.mkt@gmail.com</a></li><li>Teléfono: +34 626 72 72 67</li></ul>
+  <h3>2. Objeto</h3><p>Este sitio web tiene como finalidad ofrecer información sobre LA RED, sus contenidos, actividades formativas, cursos y servicios relacionados con la formación y los mercados financieros.</p>
+  <h3>3. Condiciones de uso</h3><p>El acceso y la navegación por esta web atribuyen la condición de usuario e implican la aceptación de las presentes condiciones. El usuario se compromete a hacer un uso lícito de los contenidos y servicios, respetando la legislación vigente y los derechos de terceros.</p>
+  <h3>4. Propiedad intelectual e industrial</h3><p>Los textos, materiales formativos, imágenes, diseños, logotipos y demás contenidos de esta web están protegidos por la normativa aplicable en materia de propiedad intelectual e industrial. Queda prohibida su reproducción, distribución o utilización sin la autorización correspondiente, salvo en los casos legalmente permitidos.</p>
+  <h3>5. Responsabilidad</h3><p>El titular procurará mantener la información actualizada y el sitio web disponible, sin garantizar la ausencia de errores, interrupciones o incidencias técnicas. No será responsable del uso indebido de los contenidos ni de los daños derivados de circunstancias ajenas a su control, dentro de los límites establecidos por la ley.</p>
+  <h3>6. Enlaces a terceros</h3><p>Esta web puede incluir enlaces a sitios de terceros. El titular no controla sus contenidos ni sus políticas de privacidad, por lo que cada usuario deberá consultar las condiciones aplicables en dichos sitios.</p>
+  <h3>7. Legislación aplicable</h3><p>El presente aviso legal se rige por la legislación española y europea que resulte aplicable, sin perjuicio de las normas imperativas que correspondan en materia de consumidores y usuarios.</p>
 </dialog>
 
 <dialog class="modal" id="m-privacidad" aria-labelledby="t-priv">
   <button class="modal-x" type="button" aria-label="Cerrar">✕</button>
   <h2 id="t-priv">Política de privacidad</h2>
-  <h3>Responsable del tratamiento</h3>
-  <p><span class="ph">[Nombre o razón social]</span> · NIF <span class="ph">[NIF]</span> · <span class="ph">[Dirección]</span> · <span class="ph">[email de contacto]</span></p>
-  <h3>Qué datos recogemos</h3>
-  <p>Al reservar una llamada a través del calendario (Calendly) nos facilitas tu nombre, tu correo electrónico, tu teléfono y las respuestas que quieras añadir. También se recogen datos de navegación a través de cookies, según lo indicado en la Política de cookies.</p>
-  <h3>Para qué los usamos</h3>
-  <ul>
-    <li>Gestionar y realizar la llamada que has reservado.</li>
-    <li>Responder a tus consultas sobre LA RED.</li>
-    <li>Medir el rendimiento de nuestros anuncios, solo si aceptas las cookies correspondientes.</li>
-  </ul>
-  <h3>Base legal</h3>
-  <p>La aplicación de medidas precontractuales a petición tuya (reservar y realizar la llamada) y tu consentimiento (cookies de medición y publicidad), que puedes retirar en cualquier momento.</p>
-  <h3>Quién más accede a tus datos</h3>
-  <p>No vendemos ni cedemos tus datos. Para prestar el servicio usamos proveedores que actúan como encargados del tratamiento: Calendly LLC (gestión de citas), Meta Platforms (medición de anuncios, solo con tu consentimiento), GitHub (alojamiento de la web) y Google (tipografías). Algunos están en Estados Unidos y se acogen al Marco de Privacidad de Datos UE-EE. UU. u otras garantías adecuadas.</p>
-  <h3>Cuánto tiempo los conservamos</h3>
-  <p>Mientras sea necesario para atender tu solicitud y, después, durante los plazos legales aplicables.</p>
-  <h3>Tus derechos</h3>
-  <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a <span class="ph">[email de contacto]</span>. Si consideras que no se han respetado, puedes reclamar ante la Agencia Española de Protección de Datos (aepd.es).</p>
+  <h3>1. Responsable del tratamiento</h3><p>El responsable del tratamiento de los datos personales recogidos a través de esta web es:</p><ul><li>Responsable: José Ramón García del Castillo</li><li>NIF/CIF: 52590139H</li><li>Correo electrónico: <a href="mailto:chimogarcia.mkt@gmail.com">chimogarcia.mkt@gmail.com</a></li><li>Domicilio: Los Carbayinos Nº 7, Oviedo, Asturias (España)</li></ul>
+  <h3>2. Datos que se recogen</h3><p>Podrán tratarse los datos que el usuario facilite voluntariamente mediante formularios, correo electrónico, teléfono o WhatsApp, como nombre, teléfono, correo electrónico y cualquier información necesaria para atender su solicitud.</p>
+  <h3>3. Finalidad del tratamiento</h3><p>Los datos se utilizarán para:</p><ul><li>Atender consultas y solicitudes de información.</li><li>Gestionar reservas, inscripciones y comunicaciones relacionadas con las actividades formativas de LA RED.</li><li>Enviar comunicaciones comerciales sobre cursos y novedades únicamente cuando exista una base jurídica válida y, cuando sea necesario, el consentimiento del usuario.</li></ul>
+  <h3>4. Legitimación</h3><p>El tratamiento se basará, según el caso, en el consentimiento del interesado, la aplicación de medidas precontractuales solicitadas por este, la ejecución de un contrato o el cumplimiento de obligaciones legales.</p>
+  <h3>5. Conservación de los datos</h3><p>Los datos se conservarán durante el tiempo necesario para atender la finalidad para la que fueron recogidos y, posteriormente, durante los plazos exigidos por la normativa aplicable o necesarios para atender posibles responsabilidades.</p>
+  <h3>6. Destinatarios</h3><p>Los datos no se venderán a terceros. Podrán acceder a ellos los proveedores que presten servicios necesarios para el funcionamiento de la web, la gestión de comunicaciones, las inscripciones o la publicidad, cuando corresponda y bajo las garantías legales exigibles. También podrán comunicarse a autoridades públicas cuando exista una obligación legal.</p>
+  <h3>7. Derechos del usuario</h3><p>El usuario podrá ejercer sus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, cuando procedan, enviando una solicitud a <a href="mailto:chimogarcia.mkt@gmail.com">chimogarcia.mkt@gmail.com</a>.</p><p>Asimismo, podrá retirar su consentimiento en cualquier momento, sin que ello afecte a la licitud del tratamiento previo, y presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si considera que sus derechos no han sido respetados.</p>
+  <h3>8. Seguridad</h3><p>El responsable adoptará las medidas técnicas y organizativas apropiadas para proteger los datos personales frente a accesos no autorizados, pérdida, alteración o tratamiento indebido.</p>
+  <h3>9. Actualizaciones</h3><p>Esta política podrá actualizarse para adaptarse a cambios normativos o a modificaciones en el funcionamiento de la web. La versión vigente estará disponible en este sitio.</p>
 </dialog>
 
 <dialog class="modal" id="m-cookies" aria-labelledby="t-cook">
   <button class="modal-x" type="button" aria-label="Cerrar">✕</button>
   <h2 id="t-cook">Política de cookies</h2>
-  <p>Las cookies son pequeños archivos que se guardan en tu navegador al visitar una web. En esta web se utilizan las siguientes:</p>
-  <ul>
-    <li><b>Técnicas y de funcionamiento</b> (Calendly): necesarias para mostrar el calendario y completar la reserva.</li>
-    <li><b>De medición y publicidad</b> (Meta Pixel): nos permiten saber si una visita llega desde nuestros anuncios y si termina en una reserva. Solo se activan si las aceptas.</li>
-  </ul>
-  <p>Además, la web carga sus tipografías desde Google Fonts, lo que implica que tu navegador se conecta a servidores de Google.</p>
-  <h3>Cómo gestionarlas</h3>
-  <p>Puedes aceptar o rechazar las cookies no necesarias desde el aviso de cookies y cambiar tu decisión cuando quieras. También puedes bloquearlas o eliminarlas desde la configuración de tu navegador.</p>
+  <h3>1. ¿Qué son las cookies?</h3><p>Las cookies son pequeños archivos que se almacenan en el dispositivo del usuario al visitar una página web. Permiten, entre otras funciones, facilitar la navegación, recordar preferencias, analizar el uso de la web o medir la eficacia de la publicidad.</p>
+  <h3>2. ¿Qué cookies utiliza esta web?</h3><p>La web de LA RED podrá utilizar cookies propias y de terceros, según la configuración de los servicios instalados:</p><ul><li><b>Cookies técnicas o necesarias:</b> permiten el funcionamiento y la seguridad de la web.</li><li><b>Cookies de análisis:</b> ayudan a conocer cómo interactúan los usuarios con la página.</li><li><b>Cookies publicitarias:</b> permiten medir campañas o mostrar publicidad personalizada, cuando corresponda.</li></ul><p>Las cookies no necesarias solo se instalarán cuando se haya obtenido el consentimiento exigible conforme a la normativa aplicable.</p>
+  <h3>3. Cookies de terceros</h3><p>Algunos servicios externos integrados en la web, como herramientas de analítica, publicidad o contenidos incrustados, podrían instalar cookies propias. Su utilización estará sujeta a las condiciones y políticas de sus respectivos proveedores.</p>
+  <h3>4. Gestión del consentimiento</h3><p>El usuario podrá aceptar, rechazar o configurar las cookies no necesarias mediante el panel de preferencias habilitado en la web (enlace «Configurar cookies» al pie de la página). También podrá modificar o retirar su consentimiento posteriormente desde dicho panel.</p>
+  <h3>5. Cómo desactivar las cookies</h3><p>El usuario puede configurar su navegador para bloquear o eliminar cookies. No obstante, la desactivación de determinadas cookies técnicas podría afectar al funcionamiento de algunos servicios.</p>
+  <h3>6. Actualizaciones</h3><p>Esta política podrá actualizarse cuando cambien las cookies utilizadas o los servicios integrados en la web. Se recomienda consultarla periódicamente.</p>
 </dialog>
 
 <dialog class="modal" id="m-riesgo" aria-labelledby="t-riesgo">
   <button class="modal-x" type="button" aria-label="Cerrar">✕</button>
   <h2 id="t-riesgo">Aviso de riesgo</h2>
-  <p>LA RED es una formación sobre una estrategia de inversión automatizada; no es asesoramiento financiero personalizado. Como toda inversión, conlleva riesgos, incluida la posible pérdida del capital invertido, y los resultados pasados no garantizan resultados futuros. Te recomendamos invertir solo dinero que no vayas a necesitar a corto plazo.</p>
-  <p>Los testimonios que aparecen en esta web reflejan experiencias personales de alumnos y no garantizan que otras personas obtengan los mismos resultados.</p>
+  <h3>Información importante sobre inversiones y mercados financieros</h3><p>Los contenidos, cursos, materiales y ejemplos publicados por LA RED tienen una finalidad principalmente educativa e informativa. Su objetivo es facilitar la comprensión de los mercados financieros, el análisis técnico, el análisis fundamental y la gestión del riesgo, así como la comprensión completa y concreta de las estrategias creadas por Chimo en las que basa su formación.</p><p>La inversión en instrumentos financieros, divisas, derivados, criptomonedas y otros activos puede implicar pérdidas económicas, incluida, en determinados productos y circunstancias, la pérdida de la totalidad del capital invertido.</p><p>Los resultados obtenidos en el pasado no garantizan resultados futuros. Los ejemplos, simulaciones, operaciones históricas y escenarios de rentabilidad tienen carácter ilustrativo y no constituyen una garantía de resultados.</p><p>La información general y los materiales formativos no sustituyen una evaluación individual de las circunstancias financieras, los objetivos y la tolerancia al riesgo de cada persona.</p><p>Cada usuario es responsable de sus decisiones de inversión y debe informarse adecuadamente sobre las características, los costes y los riesgos de los productos en los que decida operar.</p><p>Cuando resulte aplicable, cualquier servicio de inversión o recomendación estará sujeto a los requisitos legales y regulatorios correspondientes.</p>
 </dialog>
 
 <dialog class="modal" id="m-contacto" aria-labelledby="t-contacto">
   <button class="modal-x" type="button" aria-label="Cerrar">✕</button>
-  <h2 id="t-contacto">Contacto</h2>
-  <p>La forma más rápida de hablar con Chimo es reservar una llamada. Si prefieres escribir:</p>
-  <ul>
-    <li>Correo electrónico: <span class="ph">[email de contacto]</span></li>
-    <li>WhatsApp: <span class="ph">[número de WhatsApp]</span></li>
-  </ul>
-  <p><a class="btn" href="#reservar" data-close>Reservar llamada</a></p>
+  <h2 id="t-contacto">Contacto</h2><p><b>LA RED · Chimo García</b></p><p>Si deseas obtener información sobre nuestros cursos, actividades formativas o contenidos relacionados con los mercados financieros, puedes ponerte en contacto con nosotros a través de los siguientes canales:</p><ul><li>WhatsApp: <a href="https://wa.me/34626727267" target="_blank" rel="noopener">+34 626 72 72 67</a></li><li>Correo electrónico: <a href="mailto:chimogarcia.mkt@gmail.com">chimogarcia.mkt@gmail.com</a></li></ul><p>Estaremos encantados de atender tus consultas y facilitarte información sobre nuestras actividades.</p><p>Para cuestiones relacionadas con la protección de datos personales, puedes dirigirte a <a href="mailto:chimogarcia.mkt@gmail.com">chimogarcia.mkt@gmail.com</a>.</p><p><a class="btn" href="#reservar" data-close>Reservar llamada</a></p>
 </dialog>
+
+<!-- AVISO DE COOKIES: el Pixel de Meta solo se carga si el visitante acepta -->
+<div class="cookie-bar" id="cookie-bar" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+  <p>Usamos cookies propias y de terceros (Meta) para medir qué anuncios funcionan. Solo se activan si las aceptas. <a href="#cookies" data-modal="m-cookies">Más información</a></p>
+  <div class="cookie-actions"><button type="button" class="cookie-btn ghost" data-cookie="no">Rechazar</button><button type="button" class="cookie-btn" data-cookie="si">Aceptar</button></div>
+</div>
 
 <div class="mobile-cta hide" id="mobile-cta"><a class="btn" href="#reservar">Reservar llamada con Chimo <span class="arrow">→</span></a></div>
 
@@ -861,6 +847,34 @@ document.querySelectorAll('dialog.modal').forEach(d => {
     if (fuera || e.target.closest('.modal-x,[data-close]')) d.close();
   });
 });
+
+// Meta Pixel con consentimiento
+const PIXEL_ID = '1005932875624285';
+function loadPixel(){
+  if (window.fbq) return;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID);
+  fbq('track', 'PageView');
+}
+(function(){
+  const bar = document.getElementById('cookie-bar');
+  let choice = null;
+  try { choice = localStorage.getItem('lared_cookies'); } catch(e) {}
+  if (choice === 'si') loadPixel();
+  else if (choice !== 'no') bar.hidden = false;
+  bar.querySelectorAll('[data-cookie]').forEach(b => b.addEventListener('click', () => {
+    const v = b.dataset.cookie;
+    try { localStorage.setItem('lared_cookies', v); } catch(e) {}
+    bar.hidden = true;
+    if (v === 'si') loadPixel();
+  }));
+  document.getElementById('cookie-config').addEventListener('click', e => { e.preventDefault(); bar.hidden = false; });
+})();
 </script>
 </body>
 </html>
